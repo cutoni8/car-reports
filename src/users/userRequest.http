@@ -1,0 +1,26 @@
+### Create bew yser
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+	"email":"navid@navid.com",
+	"password":"12345"
+}
+
+
+###Find User by id
+GET http://localhost:3000/auth/8
+
+###Find All Users by email
+GET http://localhost:3000/auth?email=gd@navid.com
+
+###Delte user by id
+DELETE  http://localhost:3000/auth/3
+
+###update user
+PATCH   http://localhost:3000/auth/56
+Content-Type: application/json
+
+{
+	"email":"test@test.com"
+}

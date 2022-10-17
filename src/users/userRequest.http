@@ -9,16 +9,16 @@ Content-Type: application/json
 
 
 ###Find User by id
-GET http://localhost:3000/auth/8
+GET http://localhost:3000/auth/1
 
 ###Find All Users by email
-GET http://localhost:3000/auth?email=gd@navid.com
+GET http://localhost:3000/auth?email=navid@navid.com
 
 ###Delte user by id
-DELETE  http://localhost:3000/auth/3
+DELETE  http://localhost:3000/auth/10
 
 ###update user
-PATCH   http://localhost:3000/auth/56
+PATCH   http://localhost:3000/auth/1
 Content-Type: application/json
 
 {

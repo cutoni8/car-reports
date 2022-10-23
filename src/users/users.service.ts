@@ -5,41 +5,40 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UsersService {
+  constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
-	constructor(@InjectRepository(User) private repo: Repository<User>) { }
+  create(email: string, password: string) {
+    const user = this.repo.create({ email, password });
 
-	create(email: string, password: string) {
-		const user = this.repo.create({ email, password })
+    return this.repo.save(user);
+  }
 
-		return this.repo.save(user)
-	}
+  findOne(id: number) {
+    if (!id) {
+      return null;
+    }
+    return this.repo.findOneBy({ id });
+  }
 
-	findOne(id: number) {
-		if (!id) {
-			return null
-		}
-		return this.repo.findOneBy({ id })
-	}
+  find(email: string) {
+    return this.repo.findBy({ email: email });
+  }
 
-	find(email: string) {
-		return this.repo.findBy({ email: email })
-	}
+  async update(id: number, attrs: Partial<User>) {
+    const user = await this.findOne(id);
 
-	async update(id: number, attrs: Partial<User>) {
-		const user = await this.findOne(id)
+    if (!user) {
+      throw new NotFoundException('user not find');
+    }
+    Object.assign(user, attrs);
+    return this.repo.save(user);
+  }
 
-		if (!user) {
-			throw new NotFoundException('user not find')
-		}
-		Object.assign(user, attrs)
-		return this.repo.save(user)
-	}
-
-	async remove(id: number) {
-		const user = await this.findOne(id)
-		if (!user) {
-			throw new NotFoundException('user not find')
-		}
-		this.repo.remove(user)
-	}
+  async remove(id: number) {
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new NotFoundException('user not find');
+    }
+    this.repo.remove(user);
+  }
 }
